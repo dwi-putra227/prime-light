@@ -1,0 +1,223 @@
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a3263 0%, #2c4a7f 100%);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .sidebar-header {
+    padding: 30px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+
+    h2 {
+      color: white;
+      font-size: 24px;
+      margin: 0;
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+  }
+
+  .sidebar-nav {
+    flex: 1;
+    padding: 20px 0;
+    overflow-y: auto;
+
+    // Custom scrollbar untuk nav
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      position: relative;
+
+      .nav-icon {
+        font-size: 20px;
+        min-width: 20px;
+        transition: transform 0.3s ease;
+      }
+
+      span {
+        font-weight: 500;
+      }
+
+      // Hover effect
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        padding-left: 25px;
+
+        .nav-icon {
+          transform: scale(1.1);
+        }
+      }
+
+      // Active state
+      &.active {
+        background-color: rgba(255, 255, 255, 0.15);
+        color: white;
+        border-left: 4px solid #fab95b;
+        padding-left: 16px;
+        font-weight: 600;
+
+        .nav-icon {
+          color: #fab95b;
+        }
+
+        // Active indicator
+        &::before {
+          content: "";
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 30px;
+          background: #fab95b;
+          border-radius: 2px 0 0 2px;
+        }
+      }
+    }
+  }
+
+  .sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .logout-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 16px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      .nav-icon {
+        font-size: 18px;
+      }
+
+      &:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  // Responsive Design
+  @media (max-width: 768px) {
+    width: 70px;
+
+    .sidebar-header {
+      padding: 20px 10px;
+
+      h2 {
+        font-size: 18px;
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+      }
+    }
+
+    .sidebar-nav .nav-item {
+      justify-content: center;
+      padding: 15px 10px;
+
+      span {
+        display: none;
+      }
+
+      &:hover {
+        padding-left: 10px;
+      }
+
+      &.active {
+        padding-left: 6px;
+      }
+    }
+
+    .sidebar-footer .nav-item.logout {
+      span {
+        display: none;
+      }
+
+      &:hover {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    width: 60px;
+
+    .sidebar-header h2 {
+      font-size: 16px;
+    }
+
+    .sidebar-nav .nav-item {
+      padding: 12px 8px;
+
+      .nav-icon {
+        font-size: 18px;
+      }
+    }
+  }
+}
