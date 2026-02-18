@@ -16,26 +16,26 @@ import * as XLSX from "xlsx";
 import "./Orders.scss";
 
 type OrderStatus =
-  | "all"
-  | "pending"
-  | "to-process"
-  | "to-ship"
-  | "shipped"
-  | "completed"
-  | "cancelled";
+  | "semua"
+  | "menunggu"
+  | "diproses"
+  | "akan dikirim"
+  | "dikirim"
+  | "selesai"
+  | "dibatalkan";
 
 interface Order {
   id: string;
   customer: string;
   date: string;
   total: string;
-  paymentStatus: "paid" | "unpaid";
+  paymentStatus: "lunas" | "belum-bayar";
   shippingStatus:
-    | "pending"
-    | "processing"
-    | "shipped"
-    | "delivered"
-    | "cancelled";
+    | "menunggu"
+    | "diproses"
+    | "dikirim"
+    | "selesai"
+    | "dibatalkan";
   courier: string;
   products: string[];
   resi?: string;
@@ -49,7 +49,7 @@ function Orders() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editOrder, setEditOrder] = useState<Order | null>(null);
-  const [statusFilter, setStatusFilter] = useState<OrderStatus>("all");
+  const [statusFilter, setStatusFilter] = useState<OrderStatus>("semua");
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -60,56 +60,56 @@ function Orders() {
   const allOrders: Order[] = [
     {
       id: "ORD-001",
-      customer: "John Doe",
+      customer: "Budi Santoso",
       date: "2024-02-10",
       total: "Rp 500,000",
-      paymentStatus: "unpaid",
-      shippingStatus: "pending",
+      paymentStatus: "belum-bayar",
+      shippingStatus: "menunggu",
       courier: "JNE",
       products: ["Kulkas", "Lampu"],
     },
     {
       id: "ORD-002",
-      customer: "Jane Smith",
+      customer: "Siti Nurhaliza",
       date: "2024-02-10",
       total: "Rp 750,000",
-      paymentStatus: "paid",
-      shippingStatus: "processing",
+      paymentStatus: "lunas",
+      shippingStatus: "diproses",
       courier: "GoSend",
       products: ["Kompor", "Kulkas mini"],
       resi: "",
     },
     {
       id: "ORD-003",
-      customer: "Bob Johnson",
+      customer: "Ahmad Wijaya",
       date: "2024-02-09",
       total: "Rp 1,200,000",
-      paymentStatus: "paid",
-      shippingStatus: "shipped",
+      paymentStatus: "lunas",
+      shippingStatus: "dikirim",
       courier: "JNE",
       products: ["Microwave", "Blender"],
       resi: "JNE123456789",
     },
     {
       id: "ORD-004",
-      customer: "Alice Brown",
+      customer: "Dewi Lestari",
       date: "2024-02-09",
       total: "Rp 350,000",
-      paymentStatus: "paid",
-      shippingStatus: "delivered",
+      paymentStatus: "lunas",
+      shippingStatus: "selesai",
       courier: "TIKI",
-      products: ["Stop Kontak", "Extension Cord"],
+      products: ["Stop Kontak", "Kabel Extension"],
       resi: "TIKI987654321",
     },
     // {
     //   id: "ORD-005",
-    //   customer: "Charlie Wilson",
+    //   customer: "Rina Susanti",
     //   date: "2024-02-08",
     //   total: "Rp 890,000",
-    //   paymentStatus: "paid",
-    //   shippingStatus: "cancelled",
+    //   paymentStatus: "lunas",
+    //   shippingStatus: "dibatalkan",
     //   courier: "SiCepat",
-    //   products: ["Tea Collection"],
+    //   products: ["Koleksi Teh"],
     // },
   ];
 
@@ -118,27 +118,27 @@ function Orders() {
     status: OrderStatus
   ): Order[] => {
     switch (status) {
-      case "all":
+      case "semua":
         return orders;
-      case "pending":
-        return orders.filter((o) => o.shippingStatus === "pending");
-      case "to-process":
+      case "menunggu":
+        return orders.filter((o) => o.shippingStatus === "menunggu");
+      case "diproses":
         return orders.filter(
-          (o) => o.paymentStatus === "paid" && o.shippingStatus === "processing"
+          (o) => o.paymentStatus === "lunas" && o.shippingStatus === "diproses"
         );
-      case "to-ship":
+      case "akan dikirim":
         return orders.filter(
           (o) =>
-            o.paymentStatus === "paid" &&
-            o.shippingStatus === "processing" &&
+            o.paymentStatus === "lunas" &&
+            o.shippingStatus === "diproses" &&
             !o.resi
         );
-      case "shipped":
-        return orders.filter((o) => o.shippingStatus === "shipped");
-      case "completed":
-        return orders.filter((o) => o.shippingStatus === "delivered");
-      case "cancelled":
-        return orders.filter((o) => o.shippingStatus === "cancelled");
+      case "dikirim":
+        return orders.filter((o) => o.shippingStatus === "dikirim");
+      case "selesai":
+        return orders.filter((o) => o.shippingStatus === "selesai");
+      case "dibatalkan":
+        return orders.filter((o) => o.shippingStatus === "dibatalkan");
       default:
         return orders;
     }
@@ -206,15 +206,15 @@ function Orders() {
       order.date,
       order.products.join("; "),
       order.total,
-      order.paymentStatus === "paid" ? "Lunas" : "Belum Bayar",
-      order.shippingStatus === "pending"
-        ? "Pending"
-        : order.shippingStatus === "processing"
+      order.paymentStatus === "lunas" ? "Lunas" : "Belum Bayar",
+      order.shippingStatus === "menunggu"
+        ? "Menunggu"
+        : order.shippingStatus === "diproses"
         ? "Diproses"
-        : order.shippingStatus === "shipped"
+        : order.shippingStatus === "dikirim"
         ? "Dikirim"
-        : order.shippingStatus === "delivered"
-        ? "Diterima"
+        : order.shippingStatus === "selesai"
+        ? "Selesai"
         : "Dibatalkan",
       order.courier,
       order.resi || "-",
@@ -264,13 +264,13 @@ function Orders() {
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value as OrderStatus)}
               >
-                <option value="all">Semua Status</option>
-                <option value="pending">Pending</option>
-                <option value="to-process">To Process</option>
-                <option value="to-ship">To Ship</option>
-                <option value="shipped">Shipped</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
+                <option value="semua">Semua Status</option>
+                <option value="menunggu">Menunggu</option>
+                <option value="diproses">Diproses</option>
+                <option value="akan dikirim">Akan Dikirim</option>
+                <option value="dikirim">Dikirim</option>
+                <option value="selesai">Selesai</option>
+                <option value="dibatalkan">Dibatalkan</option>
               </select>
             </div>
             <button
@@ -328,15 +328,15 @@ function Orders() {
                     onChange={handleSelectAll}
                   />
                 </th>
-                <th>Order ID</th>
-                <th>Customer</th>
-                <th>Products</th>
-                <th>Total</th>
-                <th>Payment</th>
-                <th>Shipping</th>
-                <th>Courier</th>
+                <th>ID Pemesanan</th>
+                <th>Pelanggan</th>
+                <th>Produk</th>
+                <th>Jumlah</th>
+                <th>Pembayaran</th>
+                <th>Pengiriman</th>
+                <th>Kurir</th>
                 <th>Resi</th>
-                <th>Actions</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
@@ -364,7 +364,7 @@ function Orders() {
                     <td className="total">{order.total}</td>
                     <td>
                       <span className={`payment-status ${order.paymentStatus}`}>
-                        {order.paymentStatus === "paid"
+                        {order.paymentStatus === "lunas"
                           ? "Lunas"
                           : "Belum Bayar"}
                       </span>
@@ -373,11 +373,11 @@ function Orders() {
                       <span
                         className={`shipping-status ${order.shippingStatus}`}
                       >
-                        {order.shippingStatus === "pending" && "Pending"}
-                        {order.shippingStatus === "processing" && "Diproses"}
-                        {order.shippingStatus === "shipped" && "Dikirim"}
-                        {order.shippingStatus === "delivered" && "Diterima"}
-                        {order.shippingStatus === "cancelled" && "Dibatalkan"}
+                        {order.shippingStatus === "menunggu" && "Menunggu"}
+                        {order.shippingStatus === "diproses" && "Diproses"}
+                        {order.shippingStatus === "dikirim" && "Dikirim"}
+                        {order.shippingStatus === "selesai" && "Selesai"}
+                        {order.shippingStatus === "dibatalkan" && "Dibatalkan"}
                       </span>
                     </td>
                     <td>{order.courier}</td>
@@ -525,7 +525,9 @@ function Orders() {
                       onChange={(e) =>
                         setEditOrder({
                           ...editOrder,
-                          paymentStatus: e.target.value as "paid" | "unpaid",
+                          paymentStatus: e.target.value as
+                            | "lunas"
+                            | "belum-bayar",
                         })
                       }
                     >

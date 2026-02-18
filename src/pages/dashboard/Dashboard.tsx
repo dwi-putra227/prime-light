@@ -25,33 +25,33 @@ function Dashboard() {
       id: 1,
       type: "warning",
       icon: FaExclamationTriangle,
-      title: "Low Stock Alert",
-      message: "Product 'Lampu' stock is running low (5 units)",
-      time: "2 hours ago",
+      title: "Peringatan Stok Rendah",
+      message: "Produk 'Lampu' stok hampir habis (5 unit)",
+      time: "2 jam yang lalu",
     },
     {
       id: 2,
       type: "info",
       icon: FaInfoCircle,
-      title: "New Order",
-      message: "Order #ORD-006 has been placed",
-      time: "3 hours ago",
+      title: "Pesanan Baru",
+      message: "Pesanan #ORD-006 telah dibuat",
+      time: "3 jam yang lalu",
     },
     {
       id: 3,
       type: "success",
       icon: FaCheckCircle,
-      title: "Shipment Delivered",
-      message: "Shipment #SHP-003 has been delivered",
-      time: "5 hours ago",
+      title: "Pengiriman Terkirim",
+      message: "Pengiriman #SHP-003 telah terkirim",
+      time: "5 jam yang lalu",
     },
     {
       id: 4,
       type: "warning",
       icon: FaExclamationTriangle,
-      title: "Payment Pending",
-      message: "Order #ORD-004 payment is pending",
-      time: "1 day ago",
+      title: "Pembayaran Tertunda",
+      message: "Pembayaran pesanan #ORD-004 tertunda",
+      time: "1 hari yang lalu",
     },
   ];
 
@@ -62,8 +62,8 @@ function Dashboard() {
       customerName: "Sarah Johnson",
       productName: "Lampu",
       totalPrice: "Rp 10,500",
-      status: "pending",
-      time: "5 mins ago",
+      status: "menunggu",
+      time: "5 menit yang lalu",
     },
     {
       id: 2,
@@ -71,8 +71,8 @@ function Dashboard() {
       customerName: "Michael Chen",
       productName: "Kabel",
       totalPrice: "Rp 22,000,000",
-      status: "processing",
-      time: "15 mins ago",
+      status: "diproses",
+      time: "15 menit yang lalu",
     },
     {
       id: 3,
@@ -80,8 +80,8 @@ function Dashboard() {
       customerName: "Emma Wilson",
       productName: "Kulkas",
       totalPrice: "Rp 14,500,000",
-      status: "confirmed",
-      time: "30 mins ago",
+      status: "dikonfirmasi",
+      time: "30 menit yang lalu",
     },
     {
       id: 4,
@@ -89,8 +89,8 @@ function Dashboard() {
       customerName: "David Martinez",
       productName: "Lampu LED",
       totalPrice: "Rp 35,000,000",
-      status: "pending",
-      time: "1 hour ago",
+      status: "menunggu",
+      time: "1 jam yang lalu",
     },
   ];
 
@@ -98,32 +98,36 @@ function Dashboard() {
     {
       id: 1,
       type: "shipment",
-      title: "Shipment #SHP-005",
-      status: "In Transit",
+      title: "Pengiriman #SHP-005",
+      status: "Dalam Perjalanan",
       location: "Jakarta - Bandung",
       progress: 65,
     },
     {
       id: 2,
       type: "order",
-      title: "Order #ORD-007",
-      status: "Processing",
-      location: "Warehouse",
+      title: "Pesanan #ORD-007",
+      status: "Diproses",
+      location: "Gudang",
       progress: 40,
     },
     {
       id: 3,
       type: "shipment",
-      title: "Shipment #SHP-006",
-      status: "Picked Up",
-      location: "Surabaya Hub",
+      title: "Pengiriman #SHP-006",
+      status: "Sudah Diambil",
+      location: "Hub Surabaya",
       progress: 25,
     },
   ];
 
   return (
     <div className="dashboard-layout">
-      <Sidebar menuItems={menuItems} logo="PrimeLight" onLogout={handleLogout} />
+      <Sidebar
+        menuItems={menuItems}
+        logo="PrimeLight"
+        onLogout={handleLogout}
+      />
 
       <div className="dashboard-content">
         <div className="dashboard-header">
@@ -144,7 +148,7 @@ function Dashboard() {
                   <FaBox />
                 </div>
                 <div className="card-info">
-                  <h3>Total Products</h3>
+                  <h3>Jumlah Produk</h3>
                   <p className="number">1,234</p>
                 </div>
               </div>
@@ -153,7 +157,7 @@ function Dashboard() {
                   <FaShoppingCart />
                 </div>
                 <div className="card-info">
-                  <h3>Orders Today</h3>
+                  <h3>Pemesanan Hari Ini</h3>
                   <p className="number">56</p>
                 </div>
               </div>
@@ -162,7 +166,7 @@ function Dashboard() {
                   <FaTruck />
                 </div>
                 <div className="card-info">
-                  <h3>Active Shipments</h3>
+                  <h3>Pengiriman Aktif</h3>
                   <p className="number">23</p>
                 </div>
               </div>
@@ -170,19 +174,19 @@ function Dashboard() {
 
             <div className="orders-section">
               <div className="section-header">
-                <h2>Recent Orders</h2>
-                <button className="view-all">View All</button>
+                <h2>Pesanan Terbaru</h2>
+                <button className="view-all">Lihat Semua</button>
               </div>
 
               <div className="orders-table">
                 <table>
                   <thead>
                     <tr>
-                      <th>Order ID</th>
-                      <th>Customer Name</th>
-                      <th>Product Name</th>
-                      <th>Total Price</th>
-                      <th>Insert Time</th>
+                      <th>ID Pemesanan</th>
+                      <th>Nama Pelanggan</th>
+                      <th>Nama Produk</th>
+                      <th>Total Harga</th>
+                      <th>Waktu Diinput</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -196,8 +200,7 @@ function Dashboard() {
                         <td className="time">{order.time}</td>
                         <td>
                           <span className={`status-badge ${order.status}`}>
-                            {order.status.charAt(0) +
-                              order.status.slice(1)}
+                            {order.status.charAt(0) + order.status.slice(1)}
                           </span>
                         </td>
                       </tr>
@@ -209,8 +212,8 @@ function Dashboard() {
 
             <div className="live-tracking-section">
               <div className="section-header">
-                <h2>Live Tracking</h2>
-                <button className="view-all">View All</button>
+                <h2>Pelacakan Langsung</h2>
+                <button className="view-all">Lihat Semua</button>
               </div>
 
               <div className="tracking-list">
@@ -236,7 +239,7 @@ function Dashboard() {
                           ></div>
                         </div>
                         <span className="progress-text">
-                          {track.progress}% Complete
+                          {track.progress}% Selesai
                         </span>
                       </div>
                     </div>
@@ -247,45 +250,45 @@ function Dashboard() {
 
             <div className="chart-section">
               <div className="section-header">
-                <h2>Revenue Overview</h2>
+                <h2>Ringkasan Pendapatan</h2>
                 <select className="chart-filter">
-                  <option>Last 7 Days</option>
-                  <option>Last 30 Days</option>
-                  <option>Last 90 Days</option>
+                  <option>7 Hari Terakhir</option>
+                  <option>30 Hari Terakhir</option>
+                  <option>90 Hari Terakhir</option>
                 </select>
               </div>
               <div className="chart-placeholder">
                 <div className="chart-bars">
                   <div className="bar" style={{ height: "60%" }}>
-                    <span>Mon</span>
+                    <span>Senin</span>
                   </div>
                   <div className="bar" style={{ height: "80%" }}>
-                    <span>Tue</span>
+                    <span>Selasa</span>
                   </div>
                   <div className="bar" style={{ height: "45%" }}>
-                    <span>Wed</span>
+                    <span>Rabu</span>
                   </div>
                   <div className="bar" style={{ height: "90%" }}>
-                    <span>Thu</span>
+                    <span>Kamis</span>
                   </div>
                   <div className="bar" style={{ height: "70%" }}>
-                    <span>Fri</span>
+                    <span>Jumat</span>
                   </div>
                   <div className="bar" style={{ height: "55%" }}>
-                    <span>Sat</span>
+                    <span>Sabtu</span>
                   </div>
                   <div className="bar" style={{ height: "40%" }}>
-                    <span>Sun</span>
+                    <span>Minggu</span>
                   </div>
                 </div>
-                <p className="chart-label">Daily Revenue (Rp Million)</p>
+                <p className="chart-label">Pendapatan Harian (Rp Juta)</p>
               </div>
             </div>
           </div>
 
           <div className="alerts-sidebar">
             <div className="alerts-header">
-              <h3>Alerts & Notifications</h3>
+              <h3>Peringatan & Pemberitahuan</h3>
               <span className="badge">{alerts.length}</span>
             </div>
 
@@ -307,7 +310,7 @@ function Dashboard() {
               })}
             </div>
 
-            <button className="view-all-alerts">View All Alerts</button>
+            <button className="view-all-alerts">Lihat Semua Notifikasi</button>
           </div>
         </div>
       </div>
