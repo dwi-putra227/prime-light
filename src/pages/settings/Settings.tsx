@@ -69,13 +69,6 @@ function Settings() {
               <FaBell />
               <span>Notifications</span>
             </button>
-            {/* <button
-              className={`tab ${activeTab === "system" ? "active" : ""}`}
-              onClick={() => setActiveTab("system")}
-            >
-              <FaDatabase />
-              <span>System</span>
-            </button> */}
           </div>
 
           <div className="settings-panel">
@@ -83,28 +76,23 @@ function Settings() {
               <div className="panel-content">
                 <h2>Profile Settings</h2>
                 <p className="panel-description">
-                  Update your personal information
+                  Perbarui informasi pribadi Anda
                 </p>
 
                 <form onSubmit={handleSaveProfile}>
                   <div className="form-group">
-                    <label>Full Name</label>
+                    <label>Nama Lengkap</label>
                     <input type="text" placeholder="Enter your full name" />
                   </div>
 
                   <div className="form-group">
-                    <label>Email Address</label>
+                    <label>Alamat Email</label>
                     <input type="email" placeholder="Enter your email" />
                   </div>
 
                   <div className="form-group">
-                    <label>Phone Number</label>
+                    <label>Nomor Telepon</label>
                     <input type="tel" placeholder="Enter your phone number" />
-                  </div>
-
-                  <div className="form-group">
-                    <label>Company</label>
-                    <input type="text" placeholder="Enter company name" />
                   </div>
 
                   <div className="form-actions">
@@ -120,12 +108,12 @@ function Settings() {
               <div className="panel-content">
                 <h2>Security Settings</h2>
                 <p className="panel-description">
-                  Manage your password and security preferences
+                  Kelola kata sandi dan preferensi keamanan Anda
                 </p>
 
                 <form onSubmit={handleSavePassword}>
                   <div className="form-group">
-                    <label>Current Password</label>
+                    <label>Passowrd Saat Ini</label>
                     <input
                       type="password"
                       placeholder="Enter current password"
@@ -133,33 +121,36 @@ function Settings() {
                   </div>
 
                   <div className="form-group">
-                    <label>New Password</label>
-                    <input type="password" placeholder="Enter new password" />
+                    <label>Password Baru</label>
+                    <input type="password" placeholder="Enter password baru" />
                   </div>
 
                   <div className="form-group">
-                    <label>Confirm New Password</label>
-                    <input type="password" placeholder="Confirm new password" />
+                    <label>Konfirmasi Password Baru</label>
+                    <input
+                      type="password"
+                      placeholder="Konfirmasi password baru"
+                    />
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" />
-                      <span>Enable Two-Factor Authentication (2FA)</span>
+                      <span>Aktifkan Otentikasi Dua Faktor (2FA)</span>
                     </label>
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" defaultChecked />
-                      <span>Log out from other devices</span>
+                      <span>Keluar dari perangkat lain</span>
                     </label>
                   </div>
 
                   <div className="form-actions">
                     <div>
                       <button type="submit" className="btn-save">
-                        Update Password
+                        Perbarui Password
                       </button>
                     </div>
                     <div>
@@ -180,48 +171,48 @@ function Settings() {
               <div className="panel-content">
                 <h2>Notification Settings</h2>
                 <p className="panel-description">
-                  Choose what notifications you want to receive
+                  Pilih notifikasi yang ingin Anda terima.
                 </p>
 
                 <form onSubmit={handleSaveNotifications}>
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" defaultChecked />
-                      <span>Email notifications for new orders</span>
+                      <span>Pemberitahuan email untuk pesanan baru</span>
                     </label>
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" defaultChecked />
-                      <span>Email notifications for low stock</span>
+                      <span>Pemberitahuan email untuk stok rendah</span>
                     </label>
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" />
-                      <span>SMS notifications for shipment updates</span>
+                      <span>Pemberitahuan SMS untuk pembaruan pengiriman</span>
                     </label>
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" defaultChecked />
-                      <span>Push notifications</span>
+                      <span>Pemberitahuan dorong</span>
                     </label>
                   </div>
 
                   <div className="form-group checkbox">
                     <label>
                       <input type="checkbox" />
-                      <span>Weekly summary reports</span>
+                      <span>Laporan ringkasan mingguan</span>
                     </label>
                   </div>
 
                   <div className="form-actions">
                     <button type="submit" className="btn-save">
-                      Save Preferences
+                      Simpan Pengaturan
                     </button>
                   </div>
                 </form>

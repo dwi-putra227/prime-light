@@ -97,11 +97,11 @@ function Inventory() {
           <table>
             <thead>
               <tr>
-                <th>Product Name</th>
+                <th>Nama Produk</th>
                 <th>SKU</th>
                 <th>Stock</th>
-                <th>Price</th>
-                <th>Action</th>
+                <th>Harga</th>
+                <th>Aksi</th>
               </tr>
             </thead>
             <tbody>
