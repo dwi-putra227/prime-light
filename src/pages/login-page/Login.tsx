@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 function LoginPage() {
-  const correctCode = "PID";
-  const correctPassword = "artup";
+  const correctCode = "admin";
+  const correctPassword = "admin@321";
 
   const [code, setCode] = useState("");
   const [password, setPassword] = useState("");
