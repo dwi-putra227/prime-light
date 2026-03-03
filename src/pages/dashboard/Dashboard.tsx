@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import { menuItems } from "../../config/sidebarMenuConfig";
 import "./Dashboard.scss";
@@ -10,10 +11,12 @@ import {
   FaTruck,
   FaShoppingCart,
   FaBox,
+  FaTimes,
 } from "react-icons/fa";
 
 function Dashboard() {
   const navigate = useNavigate();
+  const [showNotificationModal, setShowNotificationModal] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("isAuthenticated");
@@ -310,10 +313,68 @@ function Dashboard() {
               })}
             </div>
 
-            <button className="view-all-alerts">Lihat Semua Notifikasi</button>
+            <button
+              className="view-all-alerts"
+              onClick={() => setShowNotificationModal(true)}
+            >
+              Lihat Semua Notifikasi
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Notification Modal */}
+      {showNotificationModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowNotificationModal(false)}
+        >
+          <div
+            className="notification-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modal-header">
+              <h2>Semua Notifikasi</h2>
+              <button
+                className="close-button"
+                onClick={() => setShowNotificationModal(false)}
+              >
+                <FaTimes />
+              </button>
+            </div>
+
+            <div className="modal-body">
+              <div className="notifications-list">
+                {alerts.map((alert) => {
+                  const Icon = alert.icon;
+                  return (
+                    <div
+                      key={alert.id}
+                      className={`notification-card ${alert.type}`}
+                    >
+                      <div className="notification-icon">
+                        <Icon />
+                      </div>
+                      <div className="notification-content">
+                        <div className="notification-header">
+                          <h3>{alert.title}</h3>
+                          <span className="notification-time">
+                            {alert.time}
+                          </span>
+                        </div>
+                        <p>{alert.message}</p>
+                      </div>
+                      <button className="notification-action">
+                        Lihat Detail
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
